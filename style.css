@@ -1,0 +1,730 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  height:100vh;
+  background:#000;
+  color:#fff;
+}
+
+.wrapper{
+  display:flex;
+  height:100vh;
+}
+
+/* ===== LEFT ===== */
+.left{
+  width:40%;
+  position:relative;
+  overflow:hidden;
+}
+
+.left img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter: brightness(0.85);
+}
+
+.left::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.7),
+    rgba(0,0,0,.2),
+    rgba(0,0,0,.8)
+  );
+}
+
+.left-content{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  z-index:0;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.1);
+  transition:
+    opacity 1.6s ease,
+    transform 6s ease;
+}
+
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+.top-text{
+  display:flex;
+  justify-content:space-between;
+}
+
+.top-text div{
+    font-family: "Engagement", cursive;
+    font-size: 28px;
+    text-shadow: 0 0 30px #eafa07;
+}
+
+.creator{
+  writing-mode:vertical-rl;
+  letter-spacing:3px;
+  opacity:.8;
+  font-family: "Rye", serif;
+  text-shadow: 0 0 30px #eafa07;
+}
+
+.bottom-text h1{
+  font-family: "Grenze Gotisch", serif;
+  font-size:36px;
+  color:#ffd966;
+}
+
+.bottom-text-top {
+  margin: 0 0 0 13px;
+}
+
+.bottom-text-top p {
+  font-size: 18px;
+  opacity: 0.8;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* ===== RIGHT ===== */
+.right{
+  width:60%;
+  background:linear-gradient(135deg,#1a0000,#3b0000,#1a0000);
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.right h2{
+  font-size:32px;
+  margin-bottom:24px;
+  color:#ffcc66;
+}
+
+.wish-box{
+  padding:24px;
+  min-height:160px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.controls{
+  margin-top:20px;
+}
+
+button{
+  background:#ffcc66;
+  border:none;
+  padding:10px 18px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#ffd966;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .wrapper{
+    flex-direction:column;
+    height: auto;
+  }
+  .left,.right{
+    width:100%;
+    min-height: 100vh;
+  }
+  .wave-wrap{
+    width: 85%;
+  }
+  .time{
+    width: 85%;
+  }
+}
+
+@media(max-width:400px){
+  .wave-wrap{
+    width: 70%;
+  }
+  .time{
+    width: 70%;
+  }
+}
+
+.time #cur, .time #dur {
+  font-family: 'VT323', monospace;
+    font-size: 16px;
+}
+
+.bb{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.pp{
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:radial-gradient(circle at 30% 30%, #ff3b3b, #7a0000);
+  box-shadow:
+    0 0 12px rgba(255,80,80,.8),
+    inset 0 0 6px rgba(255,255,255,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.25s;
+  padding: .5rem;
+}
+
+.pp:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 20px rgba(255,90,90,1);
+}
+
+.pp:active{
+  transform:scale(.95);
+}
+
+.pp svg{
+  width:26px;
+  height:26px;
+  fill:#fff;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.6));
+}
+
+.music-bar{
+  width:100%;
+  max-width:320px;
+  padding:10px 14px;
+  color:#fff;
+  font-family:system-ui;
+}
+
+/* WAVE BAR */
+.wave-wrap{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:36px;
+  overflow:hidden;
+  margin-bottom:6px;
+}
+
+/* CỘT */
+.wave{
+  width:3px;
+  height:30%;
+  background:rgba(255,255,255,.35);
+  border-radius:3px;
+  transition:
+    height .15s ease,
+    background .3s ease;
+}
+
+/* phần đã chạy */
+.wave.active{
+  background:#fff;
+  box-shadow:0 0 6px rgba(255,255,255,.6);
+}
+
+/* TIME */
+.time{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  opacity:.85;
+}
+
+/* ================= OVERLAY ================= */
+.typing-overlay{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at top, #3b0000, #000);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    overflow:hidden;
+}
+
+/* scanline */
+.typing-overlay::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events:none;
+}
+
+/* ================= TERMINAL ================= */
+.terminal{
+    color:#ffcc33;
+    text-shadow:0 0 8px rgba(255,200,80,.6);
+    font-size:18px;
+    line-height:1.6;
+    padding:40px 50px;
+    animation:flicker 3s infinite;
+}
+
+.line{
+    margin-bottom:6px;
+    white-space:pre;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+}
+
+/* cursor */
+.cursor{
+    display:inline-block;
+    margin-left:2px;
+    animation:blink 1s steps(1) infinite;
+    font-weight: bold;
+    font-family: 'VT323', monospace;
+}
+
+.fake-input{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* input kiểu terminal */
+#nameInput{
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffcc66;
+  font-size: 18px;
+  font-family: "Courier New", monospace;
+  caret-color: #ffcc66;
+}
+
+/* placeholder mờ */
+#nameInput::placeholder{
+  color: rgba(255,204,102,.45);
+}
+
+/* mobile fix */
+#nameInput{
+  -webkit-appearance: none;
+}
+
+.hint{
+    margin-top:16px;
+    font-size:18px;
+    color:#ff6666;
+    font-family: 'VT323', monospace;
+}
+
+.hidden{
+    display:none;
+}
+
+/* ================= EXIT EFFECT ================= */
+.typing-overlay.exit{
+    animation:glitchOut .8s forwards;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes blink{
+    50%{opacity:0}
+}
+
+@keyframes flicker{
+    0%,100%{opacity:1}
+    97%{opacity:.9}
+    98%{opacity:.4}
+    99%{opacity:1}
+}
+
+@keyframes glitchOut{
+    0%{
+        opacity:1;
+        transform:scale(1);
+        filter:blur(0);
+    }
+    30%{
+        transform:scale(1.05) skewX(2deg);
+    }
+    60%{
+        filter:blur(6px);
+        opacity:.6;
+    }
+    100%{
+        opacity:0;
+        transform:scale(1.3);
+        filter:blur(20px);
+    }
+}
+
+.wish-line{
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1.8;
+  color: #ffe9a3;
+  white-space: pre-line; /* xuống dòng */
+  text-align: justify;
+}
+
+.wish-line::before{
+  content: "› ";
+  color: #ffb703;
+}
+
+
+.slot-machine{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.slot{
+  height: 64px;
+  background: rgba(255,215,0,.15);
+  border: 2px solid #f5c542;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10px rgba(255,215,0,.4);
+  padding: 15px;
+}
+
+.slot.active{
+  animation: slotBlink .6s infinite alternate;
+}
+
+@keyframes slotBlink{
+  from{ box-shadow: 0 0 6px gold; }
+  to{ box-shadow: 0 0 16px gold; }
+}
+
+.slot{
+  font-size: 26px;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.slot.active{
+  animation: glow .6s infinite alternate;
+}
+
+@keyframes glow{
+  from{ box-shadow: 0 0 6px gold; }
+  to{ box-shadow: 0 0 18px gold; }
+}
+
+
+/* ===== LÌ XÌ ẨN BAN ĐẦU ===== */
+.lixi-box{
+  margin-top: 30px;
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(20px) scale(.95);
+  pointer-events: none;
+  transition: all .6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* khi hiện */
+.lixi-show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+#openDialogBtn{
+  margin-top: 14px;
+  padding: 10px 18px;
+  border-radius: 0;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  background: linear-gradient(135deg,#ff4d4d,#ffcc70);
+  color: #fff;
+}
+
+/* ===== FULL DIALOG ===== */
+.full-dialog{
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,.08), rgba(0,0,0,.85)),
+    linear-gradient(180deg, #000, #111);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+
+.full-dialog.show{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== ẢNH ===== */
+.image-box{
+  position: relative;
+  height: 70%;
+}
+
+.image-box img{
+  width: min(78vw, 320px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  cursor: pointer;
+
+  background: #222;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.55),
+    0 0 0 3px rgba(255,255,255,.08);
+
+  transition: .35s cubic-bezier(.2,.8,.2,1);
+}
+
+/* hover / tap */
+.image-box img:hover{
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 28px 60px rgba(0,0,0,.65),
+    0 0 0 3px rgba(255,120,117,.45);
+}
+
+/* gợi ý click */
+.image-box::after{
+  content: "Chạm để chọn ảnh";
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%);
+  font-size: 13px;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.55);
+}
+
+/* ===== NÚT GỬI ===== */
+.button-send{
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+/* nút chung */
+.button-send button{
+  min-width: 120px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+/* nút Đóng */
+.dialog-close{
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+.dialog-close:hover{
+  background: rgba(255,255,255,.22);
+}
+
+/* nút Gửi */
+#sendBtn{
+  background: linear-gradient(135deg,#ff4d4d,#ff9f43);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(255,80,80,.35);
+}
+
+#sendBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255,80,80,.5);
+}
+
+
+.image-pick{
+  width: 300px;
+  aspect-ratio: 1 / 1;
+
+  height: 100%;
+  border: 2px dashed rgba(255,255,255,.35);
+
+  background: #000;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: .25s ease;
+}
+
+.image-pick:hover{
+  border-color: rgba(255,255,255,.6);
+}
+
+/* ảnh */
+.image-pick img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+/* khi đã có ảnh */
+.image-pick.has-img{
+  border-style: solid;
+  border-color: transparent;
+}
+
+.image-pick.has-img img{
+  display: block;
+}
+
+.button-send{
+    display: flex;
+}
+
+#notify{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg,#d32f2f,#ff7043);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  opacity: 0;
+  transform: translateY(-20px) scale(.95);
+  pointer-events: none;
+  transition: .35s cubic-bezier(.4,0,.2,1);
+  z-index: 99999;
+}
+
+/* hiển thị */
+#notify.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* lỗi */
+#notify.error{
+  background: linear-gradient(135deg,#37474f,#000);
+}
+
+.lixi-envelope{
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top,#ffcc80,#e53935);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    0 8px 20px rgba(229,57,53,.45),
+    inset 0 2px 4px rgba(255,255,255,.5);
+  transition: transform .18s ease, box-shadow .18s ease;
+  margin-top: 14px;
+}
+
+/* ảnh bên trong */
+.lixi-envelope img{
+  width: 38px;
+  height: 38px;
+  pointer-events: none;
+}
+
+/* hover */
+.lixi-envelope:hover{
+  transform: scale(1.08);
+  box-shadow:
+    0 12px 26px rgba(229,57,53,.6),
+    inset 0 2px 4px rgba(255,255,255,.6);
+}
+
+/* nhấn */
+.lixi-envelope:active{
+  transform: scale(.95);
+  box-shadow:
+    0 4px 10px rgba(229,57,53,.5),
+    inset 0 3px 6px rgba(0,0,0,.25);
+}
+
+.lixi-Text{
+  font-size: 14px;
+}
+
+#nameInput{
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0.01; /* đừng = 0 */
+  background: transparent;
+  color: transparent;
+  border: none;
+  outline: none;
+
+  caret-color: transparent;
+
+  transform: scale(0.01);
+}

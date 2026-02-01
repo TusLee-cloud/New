@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chúc Tết</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Engagement&family=Grenze+Gotisch:wght@100..900&family=Rye&family=VT323&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="slider">
+        <div class="slide active" style="background-image:url('https://i.pinimg.com/1200x/4c/3f/f4/4c3ff4bb34c6c3ea9672dcfaf34ee162.jpg')"></div>
+        <div class="slide" style="background-image:url('https://i.pinimg.com/736x/1a/16/3d/1a163d814542f5af88b32a20ea56c729.jpg')"></div>
+        <div class="slide" style="background-image:url('https://i.pinimg.com/736x/8a/93/3e/8a933ed7e993ed47a447a72d6af00952.jpg')"></div>
+    </div>
+
+    
+    <div class="left-content">
+      <div class="top-text">
+        <div>Happy New Year</div>
+        <div>Bính Ngọ</div>
+      </div>
+
+      <div class="creator">CREATED BY · Tus Lee</div>
+
+      <div class="bottom-text">
+        <div class="bottom-text-top">
+            <h1>VẠN SỰ NHƯ Ý</h1>
+            <p>Trúc Nhân</p>
+        </div>
+        <div class="bottom-text-bottom">
+            <audio id="audio" src="music/Trúc Nhân _ VẠN SỰ NHƯ Ý _ Official MV.mp3"></audio>
+
+            <div class="music-bar">
+
+                <div class="bb">
+                    <button class="pp" id="pp">
+                    <svg viewBox="0 0 24 24" class="icon">
+                        <path id="iconPath"/>
+                    </svg>
+                    </button>
+
+                    <div class="progress-bar" id="progressBar">
+
+                    <div class="wave-wrap" id="wave"></div>
+
+                    <div class="time">
+                        <span id="cur">0:00</span>
+                        <span id="dur">-0:00</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+    <div class="right">
+        <div class="wish-box">
+            <div id="wishText"></div>
+        </div>
+
+        <div class="lixi-box" id="lixiBox">
+            <div class="slot-machine" id="slotMachine">
+                <div class="slot" data-index="0">?</div>
+                <div class="slot" data-index="1">?</div>
+                <div class="slot" data-index="2">?</div>
+                <div class="slot" data-index="3">?</div>
+                <div class="slot" data-index="4">?</div>
+                <div class="slot" data-index="5">?</div>
+            </div>
+
+            <div class="lixi-text" id="lixiText" style="font-size: 18px; font-family: 'VT323', monospace; color: #ccc; text-shadow: 0 0 20px #e5f50c; font-weight: 600;">Nhấn bao lì xì để quay</div>
+            <div class="lixi-envelope" id="lixiEnvelope">
+                <img src="img/icons8-refresh-50.png" alt="">
+            </div>
+
+            <button id="openDialogBtn" class="hidden">
+                Nhận may mắn
+            </button>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- ================= OVERLAY ================= -->
+<div class="typing-overlay" id="overlay">
+    <div class="terminal">
+        <div id="logArea"></div>
+
+        <br>
+
+        <div class="line fake-input" id="inputLine">
+            &gt; NHẬP TÊN:
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Nhập tên của bạn"
+                autocomplete="off"
+                autocapitalize="words"
+                inputmode="text"
+            />
+        </div>
+
+
+        <div class="hint hidden" id="hint">↵ ENTER ĐỂ BƯỚC VÀO NĂM MỚI</div>
+    </div>
+</div>
+
+
+<div class="full-dialog" id="finalDialog">
+
+  <!-- ảnh -->
+  <div class="image-box">
+    <input type="file" id="uploadImg" accept="image/*" hidden>
+
+    <div class="image-pick" id="imagePick">
+    <img id="previewImg">
+    </div>
+
+  </div>
+
+  <!-- nút gửi -->
+    <div class="button-send">
+        <button class="dialog-close" id="closeFinal">Đóng</button>
+        <button id="sendBtn">Gửi</button>
+    </div>
+
+</div>
+
+<div id="notify"></div>
+
+<script src="Js/local.js"></script>
+<script src="Js/script.js"></script>
+<script src="Js/music.js"></script>
+</body>
+</html>
