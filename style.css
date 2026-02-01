@@ -710,21 +710,26 @@ button:hover{
   font-size: 14px;
 }
 
+.input-line{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #nameInput{
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  width: 1px;
-  height: 1px;
-
-  opacity: 0.01; /* đừng = 0 */
   background: transparent;
-  color: transparent;
   border: none;
   outline: none;
+  color: #ffd54f;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  width: 180px;
+  caret-color: #ffd54f;
+}
 
-  caret-color: transparent;
-
-  transform: scale(0.01);
+#nameInput::placeholder{
+  color: rgba(255,213,79,.4);
+}
+#nameInput{
+  -webkit-appearance: none;
 }

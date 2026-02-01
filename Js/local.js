@@ -34,7 +34,7 @@ function getSavedName(){
 /* =====================================================
    OVERLAY NHẬP TÊN
 ===================================================== */
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
   const overlay   = document.getElementById("overlay");
   const logArea   = document.getElementById("logArea");
@@ -42,8 +42,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const nameInput = document.getElementById("nameInput");
   const hint      = document.getElementById("hint");
 
-  if(!overlay) return;
+  if (!overlay || !logArea || !inputLine || !nameInput) return;
 
+  /* ================= LOG SYSTEM ================= */
   const logs = [
     "[SYSTEM] KHỞI ĐỘNG GIAO DIỆN TẾT 2026...",
     "[SECURITY] KIỂM TRA LÌ XÌ...",
@@ -52,57 +53,71 @@ document.addEventListener("DOMContentLoaded", ()=>{
     "[INPUT] XIN PHÉP CHO BIẾT QUÝ DANH..."
   ];
 
-  let logIndex = 0;
-  let charIndex = 0;
+  let logIndex   = 0;
+  let charIndex  = 0;
+  let inputShown = false; // 🔒 khóa không cho hiện sớm
+
+  function showInputOnce(){
+    if (inputShown) return;
+    inputShown = true;
+
+    inputLine.classList.remove("hidden");
+    hint?.classList.remove("hidden");
+
+    // mobile: focus sau 1 nhịp nhỏ
+    setTimeout(() => {
+      nameInput.focus();
+    }, 300);
+  }
 
   function typeLog(){
-    if(logIndex >= logs.length){
-      inputLine.classList.remove("hidden");
-      hint.classList.remove("hidden");
-
-      // 🔥 mobile: auto focus mở bàn phím
-      setTimeout(()=> nameInput.focus(), 200);
+    // ✅ chỉ khi CHẠY HẾT TOÀN BỘ logs
+    if (logIndex === logs.length) {
+      showInputOnce();
       return;
     }
 
-    if(!logArea.children[logIndex]){
+    if (!logArea.children[logIndex]) {
       const div = document.createElement("div");
       div.className = "line";
       logArea.appendChild(div);
     }
 
+    const line   = logs[logIndex];
     const lineEl = logArea.children[logIndex];
-    lineEl.textContent += logs[logIndex][charIndex];
 
+    lineEl.textContent += line.charAt(charIndex);
     charIndex++;
 
-    if(charIndex >= logs[logIndex].length){
-      logIndex++;
-      charIndex = 0;
-      setTimeout(typeLog, 500);
-    }else{
+    if (charIndex < line.length) {
       setTimeout(typeLog, 40);
+    } else {
+      // xong 1 dòng
+      charIndex = 0;
+      logIndex++;
+      setTimeout(typeLog, 500);
     }
   }
 
-  const savedName = getSavedName?.();
+  /* ================= ĐÃ CÓ TÊN TRƯỚC ĐÓ ================= */
+  const savedName = typeof getSavedName === "function" ? getSavedName() : null;
 
-  if(savedName){
+  if (savedName) {
     overlay.classList.add("exit");
-    setTimeout(()=> overlay.remove(),300);
+    setTimeout(() => overlay.remove(), 300);
     window.dispatchEvent(new Event("username-ready"));
-  }else{
-    typeLog();
+    return;
   }
 
-  /* ===========================
-     XỬ LÝ INPUT THẬT
-  ============================ */
-  nameInput.addEventListener("keydown", e=>{
-    if(e.key !== "Enter") return;
+  // 🔥 bắt đầu chạy log
+  typeLog();
+
+  /* ================= INPUT THẬT ================= */
+  nameInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
 
     const name = nameInput.value.trim();
-    if(!name) return;
+    if (!name) return;
 
     localStorage.setItem(NAME_KEY, name);
     localStorage.setItem(TIME_KEY, Date.now());
@@ -110,11 +125,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
     window.dispatchEvent(new Event("username-ready"));
 
     overlay.classList.add("exit");
-    nameInput.blur();
-    setTimeout(()=> overlay.remove(),800);
+    setTimeout(() => overlay.remove(), 800);
   });
 
 });
+
 
 /* =====================================================
    GÕ LỜI CHÚC + HIỆN LÌ XÌ
