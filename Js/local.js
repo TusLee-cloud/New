@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const logArea   = document.getElementById("logArea");
   const inputLine = document.getElementById("inputLine");
   const nameInput = document.getElementById("nameInput");
+  const nameForm  = document.getElementById("nameForm");
   const hint      = document.getElementById("hint");
 
-  if (!overlay || !logArea || !inputLine || !nameInput) return;
+  if (!overlay || !logArea || !inputLine || !nameInput || !nameForm) return;
 
   /* ================= LOG SYSTEM ================= */
   const logs = [
@@ -55,24 +56,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let logIndex   = 0;
   let charIndex  = 0;
-  let inputShown = false; // 🔒 khóa không cho hiện sớm
+  let inputShown = false;
 
-  function showInputOnce(){
+  function showInputOnce() {
     if (inputShown) return;
     inputShown = true;
 
     inputLine.classList.remove("hidden");
     hint?.classList.remove("hidden");
 
-    // mobile: focus sau 1 nhịp nhỏ
+    // 📱 mobile: focus để bật bàn phím
     setTimeout(() => {
       nameInput.focus();
     }, 300);
   }
 
-  function typeLog(){
-    // ✅ chỉ khi CHẠY HẾT TOÀN BỘ logs
-    if (logIndex === logs.length) {
+  function typeLog() {
+    // ✅ chỉ hiện input khi CHẠY HẾT logs
+    if (logIndex >= logs.length) {
       showInputOnce();
       return;
     }
@@ -92,15 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (charIndex < line.length) {
       setTimeout(typeLog, 40);
     } else {
-      // xong 1 dòng
       charIndex = 0;
       logIndex++;
       setTimeout(typeLog, 500);
     }
   }
 
-  /* ================= ĐÃ CÓ TÊN TRƯỚC ĐÓ ================= */
-  const savedName = typeof getSavedName === "function" ? getSavedName() : null;
+  /* ================= ĐÃ CÓ TÊN ================= */
+  const savedName =
+    typeof getSavedName === "function" ? getSavedName() : null;
 
   if (savedName) {
     overlay.classList.add("exit");
@@ -109,12 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 🔥 bắt đầu chạy log
+  // 🔥 bắt đầu hiệu ứng terminal
   typeLog();
 
-  /* ================= INPUT THẬT ================= */
-  nameInput.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
+  /* ================= SUBMIT (CHUẨN IOS) ================= */
+  nameForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
     const name = nameInput.value.trim();
     if (!name) return;
@@ -129,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-
 
 /* =====================================================
    GÕ LỜI CHÚC + HIỆN LÌ XÌ

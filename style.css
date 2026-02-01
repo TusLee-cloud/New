@@ -730,6 +730,11 @@ button:hover{
 #nameInput::placeholder{
   color: rgba(255,213,79,.4);
 }
-#nameInput{
-  -webkit-appearance: none;
+
+#nameForm{
+  margin: -32px 0 0 -5rem;
+}
+
+#logArea, #hint{
+  margin: 20px;
 }
