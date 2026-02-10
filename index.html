@@ -105,18 +105,22 @@
 
         <br>
 
-        <div class="line fake-input" id="inputLine">
+        <div class="line fake-input hidden" id="inputLine">
             &gt; NHẬP TÊN:
-            <input
+
+            <form id="nameForm" autocomplete="off">
+                <input
                 type="text"
                 id="nameInput"
-                placeholder="Nhập tên của bạn"
+                placeholder="..."
                 autocomplete="off"
                 autocapitalize="words"
                 inputmode="text"
-            />
+                enterkeyhint="done"
+                required
+                >
+            </form>
         </div>
-
 
         <div class="hint hidden" id="hint">↵ ENTER ĐỂ BƯỚC VÀO NĂM MỚI</div>
     </div>
@@ -148,5 +152,12 @@
 <script src="Js/local.js"></script>
 <script src="Js/script.js"></script>
 <script src="Js/music.js"></script>
+<script>
+  window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+  });
+</script>
+
 </body>
+
 </html>
